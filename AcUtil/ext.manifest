@@ -1,4 +1,4 @@
-name: "AcUtil"
+name: "AcUtilExt"
 
 platforms:
     x86-win32:

@@ -36,7 +36,7 @@ namespace AcUtil {
 		const auto Input = (uint8_t*)luaL_checklstring(L, 1, &InSize);
 
 		// Decode & Do Returns
-		auto Output = new unit8_t[InSize / 4];
+		auto Output = new uint8_t[InSize / 4];
 		if ( dmCrypt::Base64Decode(Input, (uint32_t)InSize, Output, &OSZ) )
 			lua_pushlstring( L, (char*)Output, InSize / 4 );
 		else
@@ -51,7 +51,7 @@ namespace AcUtil {
 		const auto Input = (uint8_t*)luaL_checklstring(L, 1, &InSize);
 
 		// Calculate & Do Returns
-		auto Output = new unit8_t[20];
+		auto Output = new uint8_t[20];
 		if ( dmCrypt::HashSha1(Input, (uint32_t)InSize, Output) )
 			lua_pushlstring(L, (char*)Output, 20);
 		else
@@ -66,7 +66,7 @@ namespace AcUtil {
 		const auto Input = (uint8_t*)luaL_checklstring(L, 1, &InSize);
 
 		// Calculate & Do Returns
-		auto Output = new unit8_t[32];
+		auto Output = new uint8_t[32];
 		if ( dmCrypt::HashSha256(Input, (uint32_t)InSize, Output) )
 			lua_pushlstring(L, (char*)Output, 32);
 		else
@@ -81,7 +81,7 @@ namespace AcUtil {
 		const auto Input = (uint8_t*)luaL_checklstring(L, 1, &InSize);
 
 		// Calculate & Do Returns
-		auto Output = new unit8_t[64];
+		auto Output = new uint8_t[64];
 		if ( dmCrypt::HashSha512(Input, (uint32_t)InSize, Output) )
 			lua_pushlstring(L, (char*)Output, 64);
 		else
@@ -96,7 +96,7 @@ namespace AcUtil {
 		const auto Input = (uint8_t*)luaL_checklstring(L, 1, &InSize);
 
 		// Calculate & Do Returns
-		auto Output = new unit8_t[16];
+		auto Output = new uint8_t[16];
 		if ( dmCrypt::HashMd5(Input, (uint32_t)InSize, Output) )
 			lua_pushlstring(L, (char*)Output, 16);
 		else
@@ -137,4 +137,4 @@ namespace AuBinding {
 
 }
 
-DM_DECLARE_EXTENSION(AcUtil, "AcUtil", AuBinding::APPOK, AuBinding::APPOK, AuBinding::Init, nullptr, nullptr, AuBinding::OK)
+DM_DECLARE_EXTENSION(AcUtilExt, "AcUtil", AuBinding::APPOK, AuBinding::APPOK, AuBinding::Init, nullptr, nullptr, AuBinding::OK)

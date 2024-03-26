@@ -10,7 +10,7 @@ class HapticExtension {
 			new Runnable() {
 				@Override
 				public void run() {
-					activity.getWindow().getDecorView().performHapticFeedback(0,1);
+					A.getWindow().getDecorView().performHapticFeedback(0,1);
 				}
 			}
 		);

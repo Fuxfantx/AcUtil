@@ -1,0 +1,5 @@
+--  Setup
+    Simply drag the "AcUtil" volume into your Defold Project, and you should be ready to go.
+
+--  Usage
+    Check "AcUtil/api/acutil.script_api".

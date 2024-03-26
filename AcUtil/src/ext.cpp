@@ -17,7 +17,7 @@ namespace AcUtil {
 		uint32_t OSZ;
 
 		// Get Lua String, Acquire InSize & Calculate OutSize
-		const auto Input = (uint8_t*)luaL_checklstring(L, 1, *InSize);
+		const auto Input = (uint8_t*)luaL_checklstring(L, 1, &InSize);
 		OutSize = (InSize / 3 + 1) * 4;
 
 		// Encode & Do Returns
@@ -33,7 +33,7 @@ namespace AcUtil {
 
 	inline int Base64Decode(lua_State* L) {
 		size_t InSize;		uint32_t OSZ;
-		const auto Input = (uint8_t*)luaL_checklstring(L, 1, *InSize);
+		const auto Input = (uint8_t*)luaL_checklstring(L, 1, &InSize);
 
 		// Decode & Do Returns
 		auto Output = new unit8_t[InSize / 4];
@@ -48,7 +48,7 @@ namespace AcUtil {
 
 	inline int StrToSha1(lua_State* L) {
 		size_t InSize;
-		const auto Input = (uint8_t*)luaL_checklstring(L, 1, *InSize);
+		const auto Input = (uint8_t*)luaL_checklstring(L, 1, &InSize);
 
 		// Calculate & Do Returns
 		auto Output = new unit8_t[20];
@@ -63,7 +63,7 @@ namespace AcUtil {
 
 	inline int StrToSha256(lua_State* L) {
 		size_t InSize;
-		const auto Input = (uint8_t*)luaL_checklstring(L, 1, *InSize);
+		const auto Input = (uint8_t*)luaL_checklstring(L, 1, &InSize);
 
 		// Calculate & Do Returns
 		auto Output = new unit8_t[32];
@@ -78,7 +78,7 @@ namespace AcUtil {
 
 	inline int StrToSha512(lua_State* L) {
 		size_t InSize;
-		const auto Input = (uint8_t*)luaL_checklstring(L, 1, *InSize);
+		const auto Input = (uint8_t*)luaL_checklstring(L, 1, &InSize);
 
 		// Calculate & Do Returns
 		auto Output = new unit8_t[64];
@@ -93,7 +93,7 @@ namespace AcUtil {
 
 	inline int StrToMd5(lua_State* L) {
 		size_t InSize;
-		const auto Input = (uint8_t*)luaL_checklstring(L, 1, *InSize);
+		const auto Input = (uint8_t*)luaL_checklstring(L, 1, &InSize);
 
 		// Calculate & Do Returns
 		auto Output = new unit8_t[16];

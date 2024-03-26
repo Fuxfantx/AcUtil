@@ -1,5 +1,6 @@
 /* Aerials Util Functions */
 #include <dmsdk/sdk.h>
+#include <dmsdk/dlib/crypt.h>   // This including is omitted in the API Reference
 constexpr auto EMPTYSTR = "";
 
 
@@ -136,5 +137,4 @@ namespace AuBinding {
 	}
 
 }
-
 DM_DECLARE_EXTENSION(AcUtilExt, "AcUtil", AuBinding::APPOK, AuBinding::APPOK, AuBinding::Init, nullptr, nullptr, AuBinding::OK)

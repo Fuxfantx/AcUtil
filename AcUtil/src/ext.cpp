@@ -28,7 +28,7 @@ namespace AcUtil {
 		else
 			lua_pushlstring(L, (char*)EMPTYSTR, 0);
 
-		delete Output;   // POD, using either delete or delete[] is ok
+		delete[] Output;   // POD, using either delete or delete[] is ok
 		return 1;
 	}
 
@@ -43,67 +43,47 @@ namespace AcUtil {
 		else
 			lua_pushlstring(L, (char*)EMPTYSTR, 0);
 
-		delete Output;
+		delete[] Output;
 		return 1;
 	}
 
 	inline int StrToSha1(lua_State* L) {
 		size_t InSize;
-		const auto Input = (uint8_t*)luaL_checklstring(L, 1, &InSize);
-
-		// Calculate & Do Returns
-		auto Output = new uint8_t[20];
-		if ( dmCrypt::HashSha1(Input, (uint32_t)InSize, Output) )
-			lua_pushlstring(L, (char*)Output, 20);
-		else
-			lua_pushlstring(L, (char*)EMPTYSTR, 0);
-
-		delete Output;
+		const auto Input	= (uint8_t*)luaL_checklstring(L, 1, &InSize);
+			  auto Output	= new uint8_t[20];
+		dmCrypt::HashSha1(Input, (uint32_t)InSize, Output);
+		lua_pushlstring(L, (char*)Output, 20);
+		delete[] Output;
 		return 1;
 	}
 
 	inline int StrToSha256(lua_State* L) {
 		size_t InSize;
-		const auto Input = (uint8_t*)luaL_checklstring(L, 1, &InSize);
-
-		// Calculate & Do Returns
-		auto Output = new uint8_t[32];
-		if ( dmCrypt::HashSha256(Input, (uint32_t)InSize, Output) )
-			lua_pushlstring(L, (char*)Output, 32);
-		else
-			lua_pushlstring(L, (char*)EMPTYSTR, 0);
-
-		delete Output;
+		const auto Input	= (uint8_t*)luaL_checklstring(L, 1, &InSize);
+			  auto Output	= new uint8_t[32];
+		dmCrypt::HashSha256(Input, (uint32_t)InSize, Output);
+		lua_pushlstring(L, (char*)Output, 32);
+		delete[] Output;
 		return 1;
 	}
 
 	inline int StrToSha512(lua_State* L) {
 		size_t InSize;
 		const auto Input = (uint8_t*)luaL_checklstring(L, 1, &InSize);
-
-		// Calculate & Do Returns
-		auto Output = new uint8_t[64];
-		if ( dmCrypt::HashSha512(Input, (uint32_t)InSize, Output) )
-			lua_pushlstring(L, (char*)Output, 64);
-		else
-			lua_pushlstring(L, (char*)EMPTYSTR, 0);
-
-		delete Output;
+			  auto Output = new uint8_t[64];
+		dmCrypt::HashSha512(Input, (uint32_t)InSize, Output);
+		lua_pushlstring(L, (char*)Output, 64);
+		delete[] Output;
 		return 1;
 	}
 
 	inline int StrToMd5(lua_State* L) {
 		size_t InSize;
 		const auto Input = (uint8_t*)luaL_checklstring(L, 1, &InSize);
-
-		// Calculate & Do Returns
-		auto Output = new uint8_t[16];
-		if ( dmCrypt::HashMd5(Input, (uint32_t)InSize, Output) )
-			lua_pushlstring(L, (char*)Output, 16);
-		else
-			lua_pushlstring(L, (char*)EMPTYSTR, 0);
-
-		delete Output;
+			  auto Output = new uint8_t[16];
+		dmCrypt::HashMd5(Input, (uint32_t)InSize, Output);
+		lua_pushlstring(L, (char*)Output, 16);
+		delete[] Output;
 		return 1;
 	}
 

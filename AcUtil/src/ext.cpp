@@ -33,13 +33,13 @@ namespace AcUtil {
 	}
 
 	inline int Base64Decode(lua_State* L) {
-		size_t InSize;		uint32_t OSZ;
+		size_t InSize;		uint32_t OutSize;
 		const auto Input = (uint8_t*)luaL_checklstring(L, 1, &InSize);
 
 		// Decode & Do Returns
-		auto Output = new uint8_t[InSize / 4];
-		if ( dmCrypt::Base64Decode(Input, (uint32_t)InSize, Output, &OSZ) )
-			lua_pushlstring( L, (char*)Output, InSize / 4 );
+		auto Output = new uint8_t[InSize];
+		if ( dmCrypt::Base64Decode(Input, (uint32_t)InSize, Output, &OutSize) )
+			lua_pushlstring( L, (char*)Output, (size_t)OutSize );
 		else
 			lua_pushlstring(L, (char*)EMPTYSTR, 0);
 

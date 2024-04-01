@@ -1,7 +1,6 @@
 /* Aerials Util Functions */
 #include <dmsdk/sdk.h>
 #include <dmsdk/dlib/crypt.h>   // This including is omitted in the API Reference
-constexpr auto EMPTYSTR = "";
 
 
 /* APIs */
@@ -10,43 +9,7 @@ constexpr auto EMPTYSTR = "";
 #else
 	extern void AcUtilDoHapticFeedback();
 #endif
-
 namespace AcUtil {
-
-	inline int Base64Encode(lua_State* L) {
-		size_t InSize, OutSize;
-		uint32_t OSZ;
-
-		// Get Lua String, Acquire InSize & Calculate OutSize
-		const auto Input = (uint8_t*)luaL_checklstring(L, 1, &InSize);
-		OutSize = (InSize / 3 + 1) * 4;
-
-		// Encode & Do Returns
-		auto Output = new uint8_t[OutSize + 1];
-		if ( dmCrypt::Base64Encode(Input, (uint32_t)InSize, Output, &OSZ) )
-			lua_pushlstring(L, (char*)Output, OutSize);
-		else
-			lua_pushlstring(L, (char*)EMPTYSTR, 0);
-
-		delete[] Output;   // POD, using either delete or delete[] is ok
-		return 1;
-	}
-
-	inline int Base64Decode(lua_State* L) {
-		size_t InSize;		uint32_t OutSize;
-		const auto Input = (uint8_t*)luaL_checklstring(L, 1, &InSize);
-
-		// Decode & Do Returns
-		auto Output = new uint8_t[InSize];
-		if ( dmCrypt::Base64Decode(Input, (uint32_t)InSize, Output, &OutSize) )
-			lua_pushlstring( L, (char*)Output, (size_t)OutSize );
-		else
-			lua_pushlstring(L, (char*)EMPTYSTR, 0);
-
-		delete[] Output;
-		return 1;
-	}
-
 	inline int StrToSha1(lua_State* L) {
 		size_t InSize;
 		const auto Input	= (uint8_t*)luaL_checklstring(L, 1, &InSize);
@@ -91,16 +54,14 @@ namespace AcUtil {
 		AcUtilDoHapticFeedback();
 		return 0;
 	}
-
 }
 
 
 /* Binding Stuff */
 namespace AuBinding {
-
 	constexpr luaL_reg LuaAPIs[] = {
-		{"Base64Encode", AcUtil::Base64Encode}, {"Base64Decode", AcUtil::Base64Decode}, {"StrToSha1", AcUtil::StrToSha1}, {"StrToSha256", AcUtil::StrToSha256},
-		{"StrToSha512", AcUtil::StrToSha512}, {"StrToMd5", AcUtil::StrToMd5}, {"DoHapticFeedback", AcUtil::DoHapticFeedback}, {nullptr, nullptr}
+		{"StrToSha1", AcUtil::StrToSha1}, {"StrToSha256", AcUtil::StrToSha256}, {"StrToSha512", AcUtil::StrToSha512},
+		{"StrToMd5", AcUtil::StrToMd5}, {"DoHapticFeedback", AcUtil::DoHapticFeedback}, {nullptr, nullptr}
 	};
 
 	// Lifecycle Calls
@@ -115,6 +76,5 @@ namespace AuBinding {
 	inline dmExtension::Result APPOK(dmExtension::AppParams* params) {   // AppInit, AppFinal
 		return dmExtension::RESULT_OK;
 	}
-
 }
 DM_DECLARE_EXTENSION(AcUtilExt, "AcUtil", AuBinding::APPOK, AuBinding::APPOK, AuBinding::Init, nullptr, nullptr, AuBinding::OK)

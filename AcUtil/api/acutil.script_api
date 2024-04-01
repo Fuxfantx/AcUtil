@@ -2,24 +2,6 @@
   type: table
   members:
 
-  - name: Base64Encode
-    type: function
-    parameters:
-    - name: input
-      type: string
-    returns:
-    - name: output
-      type: string
-
-  - name: Base64Decode
-    type: function
-    parameters:
-    - name: input
-      type: string
-    returns:
-    - name: output
-      type: string
-
   - name: StrToSha1
     type: function
     parameters:
